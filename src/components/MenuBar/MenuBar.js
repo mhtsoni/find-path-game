@@ -138,8 +138,8 @@ function MenuBar() {
                     onCancel={()=>handleCancel()}
                     >
                     <p>Goal is to Convert blue blocks to black boxes in minimum time...</p>
-                    <p>The position where your mouse moves inverts the present colour of that bloack...</p>
-                    <p>If you do this in 20 seconds consider yourself a Genious...</p>
+                    <p>The position where your mouse moves inverts the present colour of that box...</p>
+                    <p>If you do this in 20 seconds at level 15 consider yourself a Genious...</p>
                 </Modal>
                 <Modal
                     title="YOUR IQ SCORE IS 0"
