@@ -79,12 +79,6 @@ function MenuBar() {
       };
 
 
-    //hook to check if time i.e ctr goes more than limit
-    useEffect(()=>{
-       if(ctr===2){
-           alert("gameOver")
-       }
-    },[ctr]);
     //returning required components
     return (
         <Layout className="layout">
