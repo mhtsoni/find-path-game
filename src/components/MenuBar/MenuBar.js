@@ -1,12 +1,12 @@
 import React,{useEffect,useState} from 'react';
 import 'antd/dist/antd.css';
 import './MenuBar.css';
-import { Layout, Menu,Row,Col,Button,Modal } from 'antd';
+import { Layout,Row,Col,Button,Modal } from 'antd';
 const finalImage = require('../../assets/images/finalImage.jpg')
 function MenuBar() {
     const clrs=['black','blue'];
-    const { Header, Footer } = Layout;
-    const [visible,setvisible]=useState(false);//help modal
+    const { Footer } = Layout;
+    const [visible,setvisible]=useState(true);//help modal
     const [visibleTwo,setvisibleTwo]=useState(false);//cheat modal
     var p;
     //functions to show/hide help modal one
@@ -30,30 +30,49 @@ function MenuBar() {
     };
     const handleOkTwo = e => {
         setvisibleTwo(false);
+        setctr(0);
     };
     const handleCancelTwo = e => {
         setvisibleTwo(false);
     };
     const[n,setn]=useState(5);//size of matrix
     const[ctr,setctr]=useState(0);//timer variable
-    const[control,setcontrol]=useState(0);//timer function interval set
     const [matrix, setMatrix] = useState(Array.from({length: n},()=> Array.from({length: n}, () => 0)));//matrix
-
+    const [matrixTwo, setMatrixTwo] = useState(new Array(n));//matrix Two for column
     //timer
     const tick=()=>{
         setctr(ctr=>ctr+1);
-        var sum=0;
+        var sum1=0; var sum2 =0;
+        var dec=1;
         for(var i=0;i<n;i++){
+            sum1=0;
+            sum2=0;
             for(var j=0;j<n;j++){
-                sum+=matrix[i][j];
+                sum1+=matrix[i][j];
+                sum2+=matrix[j][i];
+            }
+            console.log(sum1+" "+sum2+" "+Math.floor(n/2) );
+            if(sum1!== Math.floor(n/2) || sum2!==Math.floor(n/2)){
+                dec=0;
+                break;
             }
         }
-        if(sum===0){
+        if(dec===1){
             showModalTwo();
             clearInterval(p);
         }
     }
-
+    useEffect(()=>{
+        var temp=new Array(n);
+        for(var i=0;i<n;i++){
+            var sum2=0;
+            for(var j=0;j<n;j++){
+                sum2+=matrix[j][i];
+            }
+            temp[i]=sum2;
+        }
+        setMatrixTwo(temp);
+    },[matrix]);
     //get random no between 0 and max
     const getRandomInt=(max)=> {
         return Math.floor(Math.random() * Math.floor(max));
@@ -61,6 +80,7 @@ function MenuBar() {
 
     //Buttton to handle click on start button
     const StartHandler=()=>{
+        clearInterval(p);
         p= setInterval(tick,1000);
         for(var i=0;i<n;i++){
             matrix[getRandomInt(n)][getRandomInt(n)]=1;
@@ -77,28 +97,25 @@ function MenuBar() {
             copy[row][column]=0;
         setMatrix(copy);
       };
-
-
     //returning required components
     return (
         <Layout className="layout">
-            <Row>
-                    <Button onClick={()=>{
+            <Row style={{textAlign:'center',display:'block'}}>
+                    <Button style={{display:'inline'}} onClick={()=>{
                         setMatrix(Array.from({length: n+1},()=> Array.from({length: n+1}, () => 0)));
                         setn(n+1);
                     }} >Increase Game Level</Button>
-                    <Button onClick={()=>{
+                    <Button style={{display:'inline'}} onClick={()=>{
                             setMatrix(Array.from({length: n-1},()=> Array.from({length: n-1}, () => 0)));
                             setn(n-1);
                         }} >Decrease Game Level</Button>
-                    <Button onClick={()=>{
+                    <Button style={{display:'inline'}} onClick={()=>{
                         setMatrix(Array.from({length: 10},()=> Array.from({length: 10}, () => 0)));
                         setn(10);
                         setctr(0);
-                        clearInterval(control);
                     }} >Reset The Game</Button>
-                    <Button onClick={()=>showModal()}>Start The Game</Button>
-                   <h1 style={{color:'red'}}>Time : {ctr}</h1>
+                    <Button style={{backgroundColor:'skyblue',display:'inline'}} onClick={()=>showModal()}>Start The Game</Button>
+                   <h1 style={{color:'red',display:'inline'}}>Time : {ctr}</h1>
             </Row>
             <br/> 
             <Row>
@@ -117,8 +134,18 @@ function MenuBar() {
                                         </Button>
                                     </td>
                                 ))}
+                                <td>
+                                <b style={{color:'red'}}>{row.reduce((a, b) => a + b, 0)}</b>
+                                </td>
                                 </tr>
                             ))}
+                            <tr>
+                                {matrixTwo.map((item,rowIndex)=>(
+                                    <td key={rowIndex}>
+                                        <b style={{color:'red'}}>{item}</b>
+                                    </td>
+                                ))}
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -126,14 +153,14 @@ function MenuBar() {
 
 
                 <Modal
-                    title="Basic Modal"
+                    title="Test Your IQ"
                     visible={visible}
                     onOk={()=>handleOk()}
                     onCancel={()=>handleCancel()}
                     >
-                    <p>Goal is to Convert blue blocks to black boxes in minimum time...</p>
-                    <p>The position where your mouse moves inverts the present colour of that box...</p>
-                    <p>If you do this in 20 seconds at level 15 consider yourself a Genious...</p>
+                    <p>Goal is to make exactly <b>{Math.floor(n/2)} blue boxes in each row and column</b>...</p>
+                    <p>The position where your <b>mouse</b> moves <b>inverts the present colour of that box from black to blue and vice versa</b>...</p>
+                    <p>If you do this in 60 seconds at level 5 consider yourself a Genious...</p>
                 </Modal>
                 <Modal
                     title="YOUR IQ SCORE IS 0"
