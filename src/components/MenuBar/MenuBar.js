@@ -7,6 +7,7 @@ function MenuBar() {
     const clrs=['black','blue'];
     const { Footer } = Layout;
     const [visible,setvisible]=useState(true);//help modal
+    const [started,setstarted]=useState(false);//help modal
     const [visibleTwo,setvisibleTwo]=useState(false);//cheat modal
     var p;
     //functions to show/hide help modal one
@@ -80,6 +81,7 @@ function MenuBar() {
 
     //Buttton to handle click on start button
     const StartHandler=()=>{
+        setstarted(true);
         clearInterval(p);
         p= setInterval(tick,1000);
         for(var i=0;i<n;i++){
@@ -90,13 +92,15 @@ function MenuBar() {
 
     //function to change matrix state on hover
     const handleChange = (row, column, event) => {
-        let copy = [...matrix];
-        if(copy[row][column]===0)
-            copy[row][column]=1;
-        else
-            copy[row][column]=0;
-        setMatrix(copy);
-      };
+        if(started){
+            let copy = [...matrix];
+            if(copy[row][column]===0)
+                copy[row][column]=1;
+            else
+                copy[row][column]=0;
+            setMatrix(copy);
+        };
+        }
     //returning required components
     return (
         <Layout className="layout">
