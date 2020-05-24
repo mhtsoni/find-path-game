@@ -115,7 +115,7 @@ function MenuBar() {
                         setctr(0);
                     }} >Reset The Game</Button>
                     <Button style={{backgroundColor:'skyblue',display:'inline'}} onClick={()=>showModal()}>Start The Game</Button>
-                   <h1 style={{color:'red',display:'inline'}}>Time : {ctr}</h1>
+                   <br/><h1 style={{color:'red',display:'inline'}}>Time : {ctr}</h1>
             </Row>
             <br/> 
             <Row>
