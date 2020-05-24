@@ -35,7 +35,7 @@ function MenuBar() {
     const handleCancelTwo = e => {
         setvisibleTwo(false);
     };
-    const[n,setn]=useState(5);//size of matrix
+    const[n,setn]=useState(7);//size of matrix
     const[ctr,setctr]=useState(0);//timer variable
     const [matrix, setMatrix] = useState(Array.from({length: n},()=> Array.from({length: n}, () => 0)));//matrix
     const [matrixTwo, setMatrixTwo] = useState(new Array(n));//matrix Two for column
@@ -110,8 +110,8 @@ function MenuBar() {
                             setn(n-1);
                         }} >Decrease Game Level</Button>
                     <Button style={{display:'inline'}} onClick={()=>{
-                        setMatrix(Array.from({length: 10},()=> Array.from({length: 10}, () => 0)));
-                        setn(10);
+                        setMatrix(Array.from({length: 7},()=> Array.from({length: 7}, () => 0)));
+                        setn(7);
                         setctr(0);
                     }} >Reset The Game</Button>
                     <Button style={{backgroundColor:'skyblue',display:'inline'}} onClick={()=>showModal()}>Start The Game</Button>
@@ -172,7 +172,8 @@ function MenuBar() {
                     <img style={{width:'100%', height:'80%'}} src={finalImage} alt="Tu chutia h"></img>
                 </Modal>
             </Row>
-            <Footer style={{ textAlign: 'center' }}>Play and Test your IQ </Footer>
+            <Footer style={{ textAlign: 'center' }}>Play and Test your IQ 
+            </Footer>
         </Layout>
     )
 }
