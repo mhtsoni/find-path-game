@@ -99,7 +99,10 @@ function MenuBar() {
             else
                 copy[row][column]=0;
             setMatrix(copy);
-        };
+        }
+        else{
+            showModal();
+        }
         }
     //returning required components
     return (
@@ -176,7 +179,8 @@ function MenuBar() {
                     <img style={{width:'100%', height:'80%'}} src={finalImage} alt="Tu chutia h"></img>
                 </Modal>
             </Row>
-            <Footer style={{ textAlign: 'center' }}>Play and Test your IQ 
+            <Footer style={{ textAlign: 'center' }}>Play and Test your IQ <br/>
+                contact : mohit19699soni@gmail.com
             </Footer>
         </Layout>
     )
