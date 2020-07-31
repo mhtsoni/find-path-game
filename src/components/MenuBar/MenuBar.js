@@ -175,7 +175,7 @@ function MenuBar() {
                     onOk={()=>handleOkTwo()}
                     onCancel={()=>handleCancelTwo()}
                     >
-                    <p>Chutia bnaya bada mja aaya...</p>
+                    <p>Happy April Fool Buddy...</p>
                     <img style={{width:'100%', height:'80%'}} src={finalImage} alt="Tu chutia h"></img>
                 </Modal>
             </Row>
